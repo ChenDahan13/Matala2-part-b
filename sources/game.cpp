@@ -186,7 +186,7 @@ void Game::divideDeckToPlayers() {
     this->p2.setWinCount(0);
     this->p2.setCardsTaken(0);
     
-    // shuffle both players stacks to avoid playing the cards
+    // shuffle both players stacks to avoid playing the same cards
     this->p1.shuffleStack();
     this->p2.shuffleStack();
  }
