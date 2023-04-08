@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <random>
 #include "player.hpp"
 
 string Player::getName() {
@@ -43,4 +45,9 @@ bool Player::isBackupStackEmpty() {
 }
 Card Player::getCardFromBackup() {
     return this->backupStack.back();
+}
+void Player::shuffleStack() {
+    random_device r;
+    mt19937 g(r());
+    shuffle(this->stack.begin(), this->stack.end(), g);
 }

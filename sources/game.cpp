@@ -44,10 +44,11 @@ void Game::playTurn() {
         this->p1.throwCard();
         this->p2.throwCard(); 
             
-        /*if(this->p1.isStackEmpty() && this->p2.isStackEmpty()) { // in case after draw no left cards
+        if(this->p1.isStackEmpty() && this->p2.isStackEmpty()) { // in case after draw no left cards
             numOfCardsToAdd = 2;
             startGameFromBegin();
-        }*/
+            cout << "The last turn was draw" << endl;
+        }
 
         firstCard = this->p1.getCard();
         this->p1.addCardToBackupStack(firstCard);  
@@ -109,8 +110,8 @@ void Game::printStats() {
 }
 
 void Game::printWiner() {
-    int player1win = this->p1.getWinCount();
-    int player2win = this->p2.getWinCount();
+    int player1win = this->p1.cardesTaken();
+    int player2win = this->p2.cardesTaken();
     if(player1win > player2win) {
         cout << this->p1.getName() << " won." << endl;
     }
@@ -118,7 +119,7 @@ void Game::printWiner() {
         cout << this->p2.getName() << " won." << endl;
     }
     else {
-        throw std::invalid_argument("No winner it's even");
+        throw std::invalid_argument("No winner, it's even");
     }
 }
 
@@ -170,14 +171,14 @@ void Game::divideDeckToPlayers() {
  void Game::startGameFromBegin() { // in case after draw the players have no cards
     this->numOfDraws = 0;
     this->numOfTurns = 0;
-
+    
     while(!this->p1.isBackupStackEmpty()) { // puts the cards that were thrown back to the original stack
         this->p1.addCardToStack(this->p1.getCardFromBackup());
         this->p1.throwFromBackup();
     }
     this->p1.setWinCount(0);
     this->p1.setCardsTaken(0);
-
+    
     while(!this->p2.isBackupStackEmpty()) { // puts the cards that were thrown back to the original stack
         this->p2.addCardToStack(this->p2.getCardFromBackup());
         this->p2.throwFromBackup();
@@ -185,6 +186,9 @@ void Game::divideDeckToPlayers() {
     this->p2.setWinCount(0);
     this->p2.setCardsTaken(0);
     
+    // shuffle both players stacks to avoid playing the cards
+    this->p1.shuffleStack();
+    this->p2.shuffleStack();
  }
 
  bool Game::areEqualPlayers(Player &player1, Player &player2) {

@@ -34,6 +34,7 @@ class Player {
             return stack;
         }
         int stacksize();
+        void shuffleStack();
         int sizeOfBackupStack();
         int cardesTaken();
         void addCardToStack(Card card);
