@@ -119,7 +119,7 @@ void Game::printWiner() {
         cout << this->p2.getName() << " won." << endl;
     }
     else {
-        throw std::invalid_argument("No winner, it's even");
+        cout << "No winner, it's even" << endl;
     }
 }
 
